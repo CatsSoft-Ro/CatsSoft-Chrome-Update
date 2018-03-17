@@ -166,53 +166,27 @@ cls
     echo.
     echo ---------------------------------------------------------------------------------
     echo.
-    FOR /f "tokens=2 delims==" %%f IN ('wmic os get osarchitecture /value ^| find "="') DO SET "OS_ARCH=%%f"
-    IF "%OS_ARCH%"=="32-bit" GOTO :32bit
-    IF "%OS_ARCH%"=="64-bit" GOTO :64bit
-
-    ECHO OS Architecture %OS_ARCH% is not supported!
-    EXIT 1
-
-    :32bit
-    ECHO "32 bit Operating System"
+    if %processor_architecture%==x86 ( 
+      if exist "%BinDir%\wget.exe" (
+       goto gcstandard
+      ) else (
+        bitsadmin /transfer wcb /priority high "https://eternallybored.org/misc/wget/1.19.4/32/wget.exe" "%BinDir%\wget.exe"
+       goto gcstandard
+      )
+    ) else (
+      if exist "%BinDir%\wget.exe" (
+       goto gcstandard
+      ) else (
+       bitsadmin /transfer wcb /priority high "https://eternallybored.org/misc/wget/1.19.4/64/wget.exe" "%BinDir%\wget.exe"
+       goto gcstandard
+      )
+    )
+    :gcstandard
     echo.
     echo ---------------------------------------------------------------------------------
-    echo.
-    if exist "%BinDir%\wget.exe" (
-       goto down32
-    ) else (
-      bitsadmin /transfer wcb /priority high "https://eternallybored.org/misc/wget/1.19.4/32/wget.exe" "%BinDir%\wget.exe"
-       goto down32
-    )
-    :down32
     echo.
     cd /d "Bin"
     wget.exe --continue --show-progress --no-check-certificate "%URL%" -O "%~dp0%File%"
-    echo.
-    GOTO :SUCCESS
-
-    :64bit
-    ECHO "64 bit Operating System"
-    echo.
-    echo ---------------------------------------------------------------------------------
-    echo.
-    if exist "%BinDir%\wget.exe" (
-       goto down64
-    ) else (
-      bitsadmin /transfer wcb /priority high "https://eternallybored.org/misc/wget/1.19.4/64/wget.exe" "%BinDir%\wget.exe"
-       goto down64
-    )
-    :down64
-    echo.
-    cd /d "Bin"
-    wget.exe --continue --show-progress --no-check-certificate "%URL%" -O "%~dp0%File%"
-    echo.
-    GOTO :SUCCESS
-
-    :SUCCESS
-    echo.
-    echo ---------------------------------------------------------------------------------
-    echo.
     if %errorlevel%==1 exit 1
     if exist "%~dp0%File%" (
       echo The files "%File%" has been sucessfully downloaded!
@@ -230,11 +204,16 @@ cls
       echo Google Chrome is already up to date [%%~nf]
      echo.
     ) else (
+     echo.
      echo A newer version of Google Chrome was found [%cver% --^> %%~nf]
+     echo.
      echo Installing . . .
      REM [DEBUG] comment this for debugging
+     echo.
      %%~ff /silent /install
+     echo.
      echo Finished!
+     echo.
      )
     )
     echo.
