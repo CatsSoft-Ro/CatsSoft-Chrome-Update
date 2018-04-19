@@ -37,7 +37,7 @@ goto :eof
     echo.
     echo.    [2] Type "2" and get download link for Google Chrome. 
     echo.
-    echo.    [2] Type "3" and download new version of Google Chrome. 
+    echo.    [3] Type "3" and download new version of Google Chrome. 
     echo.
     echo.    [0] Type "0" and close this tool.
     echo.
@@ -72,6 +72,11 @@ cls
 :: void uninstall();
 :: /*************************************************************************************/
 :uninstall
+    @cls
+    Title CatsSoft-Uninstall-Chrome
+    color 0B
+    mode con:cols=90 lines=26
+    @cls
     echo.
     echo ---------------------------------------------------------------------------------
     echo.
@@ -89,19 +94,16 @@ cls
     echo.
     echo ChromeUninstallLocation: %ChromeInstallLocation% >> CatsSoft-Chrome-Update.txt
     echo.
-    echo Warning!
-    echo.
-    echo Google Chrome already installed.
+    echo Please wait Google Chrome is uninstalled.
     echo.
     if exist "%ChromeInstallLocation%\setup.exe" (
     echo.
-    echo Uninstall Google Chrome...
-    echo.
     taskkill /F /IM "Chrome.exe"
     "%ChromeInstallLocation%\setup.exe" --uninstall
-     echo Uninstall Done.
+     echo Google Chrome has been sucessfully Uninstall.
      goto close_uninstaller
     ) else (
+     echo Google Chrome was failed Uninstall.
      goto close_uninstaller
     )
     :close_uninstaller
@@ -119,6 +121,11 @@ cls
 :: void Download();
 :: /*************************************************************************************/
 :getlink
+    @cls
+    Title CatsSoft-Get-Link-Chrome
+    color 0B
+    mode con:cols=90 lines=26
+    @cls
     echo.
     echo ---------------------------------------------------------------------------------
     echo.
@@ -137,6 +144,11 @@ cls
 :: void Download();
 :: /*************************************************************************************/
 :Download
+    @cls
+    Title CatsSoft-Download-Chrome
+    color 0B
+    mode con:cols=90 lines=26
+    @cls
     echo.
     echo ---------------------------------------------------------------------------------
     echo.
