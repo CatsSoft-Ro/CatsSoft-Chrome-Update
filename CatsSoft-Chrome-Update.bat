@@ -59,7 +59,9 @@ goto :eof
     echo.
     echo ---------------------------------------------------------------------------------
     echo.
-    echo.Press any key to return to the menu. . .
+    echo	=== Press any key to return to the main menu ===
+    echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     pause>nul
     goto menu
@@ -110,7 +112,9 @@ cls
     echo.
     echo ---------------------------------------------------------------------------------
     echo.
-    echo.Press any key to return to the menu. . .
+    echo	=== Press any key to return to the main menu ===
+    echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     pause>nul
     goto menu
@@ -133,7 +137,9 @@ cls
     echo.
     echo ---------------------------------------------------------------------------------
     echo.
-    echo.Press any key to return to the menu. . .
+    echo	=== Press any key to return to the main menu ===
+    echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     pause>nul
     goto menu
@@ -174,10 +180,6 @@ cls
     REM [DEBUG]
     echo current install is %cver%
     echo.
-    echo Checking server for updates . . .
-    echo.
-    echo ---------------------------------------------------------------------------------
-    echo.
     if %processor_architecture%==x86 ( 
       if exist "%BinDir%\wget.exe" (
        goto gcstandard
@@ -194,6 +196,10 @@ cls
       )
     )
     :gcstandard
+    echo.
+    echo ---------------------------------------------------------------------------------
+    echo.
+    echo 	=== Download new updates ===
     echo.
     echo ---------------------------------------------------------------------------------
     echo.
@@ -216,15 +222,21 @@ cls
       echo Google Chrome is already up to date [%%~nf]
      echo.
     ) else (
-     echo.
-     echo A newer version of Google Chrome was found [%cver% --^> %%~nf]
-     echo.
-     echo Installing . . .
+    echo.
+    echo A newer version of Google Chrome was found [%cver% --^> %%~nf]
+    echo.
+    echo ---------------------------------------------------------------------------------
+    echo.
+    echo 	=== Installing updates ===
+    echo.
+    echo ---------------------------------------------------------------------------------
+    echo.
+     echo Please wait few moments ... Install Google Chrome ...
      REM [DEBUG] comment this for debugging
      echo.
      %%~ff /silent /install
      echo.
-     echo Finished!
+     echo Google Chrome finish install!
      echo.
      )
     )
@@ -236,13 +248,21 @@ cls
     echo.
     if exist "%InstallLocation%\chrome.exe" (
     echo.
-    echo Google Chrome has been sucessfully installed!
+    echo ---------------------------------------------------------------------------------
+    echo.
+    echo 	=== Google Chrome has been sucessfully installed! ===
+    echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     start /d "%InstallLocation%" chrome.exe "https://github.com/CatsSoft-Ro"
      goto close
     ) else (
     echo.
-    echo Google Chrome could not be installed! Try again later.
+    echo ---------------------------------------------------------------------------------
+    echo.
+    echo	=== Google Chrome could not be installed! Try again later. ===
+    echo.
+    echo ---------------------------------------------------------------------------------
     echo.
      goto close
     )
@@ -250,7 +270,9 @@ cls
     echo.
     echo ---------------------------------------------------------------------------------
     echo.
-    echo.Press any key to return to the menu. . .
+    echo	=== Press any key to return to the main menu ===
+    echo.
+    echo ---------------------------------------------------------------------------------
     echo.
     pause>nul
     goto menu
